@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TodoList</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+    <!-- 
+        MVVM--面向数据进行开发
+        我们编写了M层和V层，极大的简化了dom的操作
+        vue就是VM层，不用我们编写
+        它是系统自动帮我们映射两层之间的联系和变化
+        我们只需要通过M层的数据开发修改就可以影响V层的页面
+
+    -->
+
+    <!-- V层 -->
+    <div id="app">
+        <input type="text" v-model="inputValue">
+        <button @click="handleBtnClick">提交</button>
+        <ul>
+            <li v-for="item in list">
+                {{ item }}
+            </li>
+        </ul>
+
+    </div>
+    <script>
+
+        //M层
+
+        var app = new Vue({
+            el:'#app',
+            data:{
+                list:[],
+                inputValue:''
+            },
+            methods:{
+                handleBtnClick:function(){
+                    this.list.push(this.inputValue);
+                    this.inputValue = '';
+                }
+            }
+        })
+    </script>
+</body>
+</html>
