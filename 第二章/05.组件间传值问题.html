@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TodoList</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <!-- 父子组件间传值问题 -->
+
+    <!-- 
+        父组件向子组件传值可以使用v-bind
+        子组件一定要接收
+        子组件向父组件传值使用$emit
+        通过事件触发向上一层触发事件
+        子组件触发的事件，父组件恰好在监听
+        父组件就能获取到子组件带出来的内容
+        v-bind可以简写为:
+     -->
+    
+    <div id="app">
+        <input type="text" v-model="inputValue">
+        <button @click="handleBtnClick">提交</button>
+        <ul>
+
+            <todo-item  :content="item" 
+                        :index="index"
+                        v-for="(item,index) in list"
+                        @delete="handleItemDelete">
+            </todo-item>
+
+        </ul>
+
+    </div>
+    <script>
+
+
+
+        var TodoItem = {
+            props:['content','index'],
+            template:"<li @click='handleItemClick'>{{ content }}</li>",
+            methods:{
+                handleItemClick:function(){
+                    this.$emit("delete",this.index);
+                }
+            }
+        }
+
+        var app = new Vue({
+            el:'#app',
+            components:{
+                TodoItem:TodoItem,
+            },
+            data:{
+                list:[],
+                inputValue:''
+            },
+            methods:{
+                handleBtnClick:function(){
+                    this.list.push(this.inputValue);
+                    this.inputValue = '';
+                },
+                handleItemDelete:function(index){
+                    this.list.splice(index,1);
+                }
+            }
+        })
+    </script>
+</body>
+</html>
