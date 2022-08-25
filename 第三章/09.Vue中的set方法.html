@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue中的set方法</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+
+        <div v-for="(item,key,index) of userInfo">
+            {{item}} ---- {{key}} ---- {{index}}
+        </div>
+
+        <div v-for="(item,index) of userinfo">
+            {{item}}
+        </div>
+
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{ 
+                //关于对象
+                userInfo:{
+                    name:"Dell",
+                    age:28,
+                    gender:"男",
+                    salary:"secret",
+                },
+                //关于数组
+                userinfo:[1,2,3,4]
+            }
+        })
+
+        /* 
+        关于对象：
+        通过set方法添加数据，页面也会跟着改变
+        Vue.set既是一个全局方法，也是一个实例方法
+        例如：
+        Vue.set(vm.userInfo,"address","beijing") 
+        例如：
+        vm.$set(vm.userInfo,"address","beijing")
+        也是一样的效果
+
+        关于数组：(同理可得)
+        Vue.set(vm.userinfo,1,5) 
+        vm.$set(vm.userinfo,2,10)
+        */
+    </script>
+</body>
+</html>

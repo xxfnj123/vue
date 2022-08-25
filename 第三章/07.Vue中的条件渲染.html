@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue中的条件渲染</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        使用v-if相当于把dom从页面上删除
+        v-show则是设置display为none，实际上dom元素还在页面上
+        使用v-show性能会更好些
+        v-if和v-else要连在一起使用
+        不能被分隔
+        例如：v-if、v-else-if、v-else
+        注意：
+        当给某个元素添加key值时，
+        vue会知道它是页面上唯一的元素
+        如果相同两个标签的key值不一样
+        在切换时，就不会去复用之前的标签内容
+     -->
+    <div id="app">
+
+        <div v-if="show">
+            用户名：<input key="username" />
+        </div>
+        <div v-else>
+            邮箱名：<input key="password" />
+        </div>
+
+        <!-- 
+            <div v-if="show === 'a'">a</div>
+            <div v-else-if="show === 'b'">b</div>
+            <div v-else>others</div> 
+        -->
+
+        <!-- 
+            <div v-show="show">{{message}}</div> 
+        -->
+
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                show:false,
+                message:"hello world",
+            }
+        })
+    </script>
+</body>
+</html>

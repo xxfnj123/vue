@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue中的列表渲染</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+
+        <div v-for="(item,index) of list" :key="item.id">
+            <div>{{item.text}} ---- {{index}}</div>
+            <span>{{item.text}}</span>
+        </div>
+
+        <br/>
+        <br/>
+
+        <div v-for="(item,key,index) of userInfo">
+            {{item}} ---- {{key}} ---- {{index}}
+        </div>
+
+    </div>
+
+    <script>
+
+        /* 
+        pop
+        push
+        shift
+        unshift
+        splice
+        sort
+        reverse
+         */
+
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                list:[{
+                    id:"01",
+                    text:"hello"
+                },{
+                    id:"02",
+                    text:"world"
+                },{
+                    id:"03",
+                    text:"Lee"
+                }],
+                userInfo:{
+                    name:"Dell",
+                    age:28,
+                    gender:"男",
+                    salary:"secret",
+                    address:"beijing"
+                }
+            }
+        })
+    </script>
+</body>
+</html>

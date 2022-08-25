@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模板语法</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div>
+        <!-- 差值表达式 -->
+        <!-- 只传递值，不显示样式 -->
+        {{ name + ' Lee' }}
+        </div>
+        <!-- v-text -->
+        <!-- 只传递值，不显示样式 -->
+        <div v-text="name + ' Lee'"></div>
+        <!-- v-html -->
+        <!-- 会显示样式 -->
+        <div v-html="name + ' Lee'"></div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                name:"<h2>Dell</h2>",
+            }
+        })
+    </script>
+</body>
+</html>
