@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件使用的细节点</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <table>
+            <tbody>
+                <!-- 既符合h5的规范，又可以引用row -->
+                <tr is="row"></tr>
+                <tr is="row"></tr>
+                <tr is="row"></tr>
+            </tbody>
+            <!-- 同理得ul、ol、select标签也是 -->
+            <ul>
+                <li is="row"></li>
+                <li is="row"></li>
+                <li is="row"></li>
+            </ul>
+        </table>
+
+        <p>-------------------</p>
+
+        <div ref='hello' @click="handleClick">hello world</div>
+
+        <p>-------------------</p>
+        <!-- ref的使用 -->
+        <counter ref="one" @change="handleChange"></counter>
+        <counter ref="two" @change="handleChange"></counter>
+        <div>{{total}}</div>
+
+    </div>
+
+    <script>
+        /* 
+        在子组件里面
+        data必须以函数的形式定义
+        而不能以对象的形式定义
+        因为子组件可能被调用多次
+        并且需要return返回一个对象
+        这样每个子组件都不受互相的影响
+         */
+
+        Vue.component('row',{
+            data:function(){
+                return{
+                    content:'this is a content'
+                }
+            },
+            template:'<tr><td>{{content}}</td></tr>'
+        })
+
+        /* 创建一个计数器 */
+        Vue.component('counter',{
+            template:'<div @click="handleClick">{{number}}</div>',
+            data:function(){
+                return{
+                    number:0
+                }
+            },
+            methods:{
+                handleClick:function(){
+                    this.number++;
+                    this.$emit('change');
+                }
+            }
+        })
+
+
+        var vm = new Vue({
+            el:"#root",
+            methods:{
+                handleClick:function(){
+                    console.log(this.$refs.hello.innerHTML);
+                },
+                handleChange:function(){
+                    this.total = this.$refs.one.number + this.$refs.two.number;
+                }
+            },
+            data:{
+                total:0,
+            }
+        })
+    </script>
+</body>
+</html>
