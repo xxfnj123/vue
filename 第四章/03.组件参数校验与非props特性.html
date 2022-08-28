@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件参数校验与非props特性</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <child content="hello world"></child>
+        <!-- <child :content="123456"></child> -->
+        <!-- <child :content="{a:1}"></child> -->
+    </div>
+
+    <script>
+
+        Vue.component('child',{
+            props:{
+                /* 
+                props特性
+                父组件使用子组件通过属性向子组件传值
+                子组件props里声明了对父组件传递过来的值的接收
+                即父子组件有对应关系
+                 */
+
+                /* 
+                规定传递的content值的类型
+                String为字符串、Number为数值、Object为对象
+                把类型写进数组，表示类型值都可以表示
+                 */
+                //content:[Number,String,Object],
+                content:{
+                    type:[Number,String,Object],
+                    required:false,
+                    /* child标签没有调用content就会显示default value */
+                    default:'default value',
+                    /* 校验器,要求传入的内容长度大于5 */
+                    validator:function(value){
+                        return(value.length>5);
+                    }
+                }
+            },
+            /* 
+            props特性
+            父组件传，子组件接收
+            所以可以直接调用{{content}}
+            非props特性
+            则不能直接调用
+            且对应的属性值会显示在子组件的最外层的标签的html的属性中
+             */
+            template:'<div>{{content}}</div>',
+        })
+
+
+        var vm = new Vue({
+            el:"#app",
+            data:{
+
+            }
+        })
+    </script>
+</body>
+</html>
