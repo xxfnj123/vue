@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>非父子组件间的传递(Bus/总线/发布订阅模式/观察者模式)</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <child content="Dell"></child>
+        <child content="lee"></child>
+    </div>
+
+    <script>
+
+        /* 通过bus总线这种方式可以解决非父子组件之间的传值 */
+
+        Vue.prototype.bus = new Vue();
+
+
+        Vue.component('child',{
+            data:function(){
+                return{
+                    selfContent:this.content,
+                }
+            },
+            props:{
+                content:String,
+            },
+            template:'<div @click="handleClick">{{selfContent}}</div>',
+            methods:{
+                handleClick:function(){
+                    this.bus.$emit('change',this.selfContent);
+                }
+            },
+            mounted:function(){
+                var this_ = this;
+                this.bus.$on('change',function(msg){
+                    this_.selfContent = msg;
+                })
+            }
+        })
+
+
+        var vm = new Vue({
+            el:"#app",
+            data:{
+
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue中的作用域插槽</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <child>
+            <!-- 
+                作用域插槽
+                例如：
+                必须写在template里
+                同时声明slot-scope接收从子组件里传来的数据，并放在props里
+                同时设定一个h1标签展示props数据
+             -->
+            <template slot-scope="props">
+                <h1>{{props.item}}</h1>
+            </template>
+        </child>
+    </div>
+
+    <script>
+
+        Vue.component('child',{
+            data:function(){
+                return{
+                    list:[1,2,3,4],
+                }
+            },
+            template:`<div>
+                        <ul>
+                            <slot v-for="item of list" :item=item></slot>
+                        </ul>
+                      </div>`,
+        })
+
+
+        var vm = new Vue({
+            el:"#app",
+            data:{
+
+            },
+            methods:{
+
+            }
+        })
+    </script>
+</body>
+</html>
