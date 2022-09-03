@@ -7,17 +7,26 @@
     <title></title>
     <script src="js/vue.js"></script>
     <link rel="stylesheet" type="text/css" href="css/animate.css">
+    <script src="js/velocity.min.js"></script>
 </head>
 <body>
     <div id="app">
-
+        <transition>
+            <div v-show="show">hello world</div>
+        </transition>
+        <button @click="handleBtnClick">toggle</button>
     </div>
 
     <script>
         var vm = new Vue({
             el:"#app",
             data:{
-
+                show:false,
+            },
+            methods:{
+                handleBtnClick:function(){
+                    this.show = !this.show;
+                }
             }
         })
     </script>
